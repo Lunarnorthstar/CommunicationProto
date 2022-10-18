@@ -68,6 +68,8 @@ public class PlayerMovement : MonoBehaviour
         
         Vector3 movementVelocity = moveDirection * moveSpeed; //Multiply by speed to get velocity
         myRB.velocity = movementVelocity; //Apply that to your rigidbody
+
+        
         
         //Health
         if (!haunted && currentHealth < maxHealth)
