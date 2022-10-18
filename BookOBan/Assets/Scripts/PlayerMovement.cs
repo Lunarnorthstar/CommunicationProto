@@ -24,10 +24,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject healthBar;
     public bool haunted; //Whether the player is being damaged
 
+    public GameObject sprite;
+
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         myRB = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
     }
 
@@ -69,8 +74,32 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementVelocity = moveDirection * moveSpeed; //Multiply by speed to get velocity
         myRB.velocity = movementVelocity; //Apply that to your rigidbody
 
+        if(moveDirection != new Vector3(0,0,0))
+        {
+            animator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            animator.SetBool("IsMoving", false);
+        }
+
+
+        if(Input.GetAxis("Horizontal") > 0)
+        {
+            //sprite.transform.localScale = new Vector3(-0.1, 0.1, 1);
+            sprite.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+        }
+
+        if(Input.GetAxis("Horizontal") < 0)
+        {
+            sprite.transform.rotation = new Quaternion(0, 0, 0, 0);
+            //sprite.transform.localScale = new Vector3(0.1, 0.1, 1);
+        }
         
+
+
         
+
         //Health
         if (!haunted && currentHealth < maxHealth)
         {
@@ -81,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Debug.Log("You are now dead. Buy a Premium Subscription for the full death experience (now only $6.66 per month)");
+            Debug.Log("You are now dead. Buy a Premium Subscription for the full death experience (now only $6.66 a month)");
             Debug.Break();
         }
     }
