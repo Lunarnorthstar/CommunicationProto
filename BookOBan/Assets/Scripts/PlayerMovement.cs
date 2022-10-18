@@ -86,19 +86,15 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetAxis("Horizontal") > 0)
         {
-            //sprite.transform.localScale = new Vector3(-0.1, 0.1, 1);
-            sprite.transform.rotation = new Quaternion(0, 180.0f, 0, 0);
+            sprite.transform.localScale = new Vector3(-0.1f, 0.1f, 1);
+            //sprite.transform.localScale = new Vector3(1, 1, -1);
         }
 
         if(Input.GetAxis("Horizontal") < 0)
         {
-            sprite.transform.rotation = new Quaternion(0, 0, 0, 0);
-            //sprite.transform.localScale = new Vector3(0.1, 0.1, 1);
+            //sprite.transform.localScale = new Vector3(1, 1, 1);
+            sprite.transform.localScale = new Vector3(0.1f, 0.1f, 1);
         }
-        
-
-
-        
 
         //Health
         if (!haunted && currentHealth < maxHealth)
