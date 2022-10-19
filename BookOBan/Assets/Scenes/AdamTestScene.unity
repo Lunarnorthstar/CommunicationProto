@@ -1330,8 +1330,8 @@ MonoBehaviour:
   - Bad Bob
   - Mad Moe
   enemyDescriptions:
-  - Bad Bob is a red circle. Close your eyes and Bad Bob will go away.
-  - Mad Moe is a yellow Square. Hold your breath and Mad Moe will go away.
+  - Bad Bob is red. Close your eyes and Bad Bob will go away.
+  - Mad Moe is yellow. Hold your breath and Mad Moe will go away.
   nameText: {fileID: 199232761}
   descText: {fileID: 2066813609}
   pageIndex: 0
@@ -2012,7 +2012,7 @@ Camera:
     serializedVersion: 2
     x: 0.55
     y: 0
-    width: 0.45
+    width: 0.5
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -2756,7 +2756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4603,7 +4603,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.45
+    width: 0.5
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
