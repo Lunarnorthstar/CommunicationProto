@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
-    public bool closeEyesGoal;
-
+    public float moveSpeed;
+    
+    
+    public bool closeEyesGoal; //Whether the player should close their eyes or not to defeat this entity
+    public bool caresEyes; //Whether the player's eyes matter about defeating the entity
     public bool holdBreathGoal;
+    public bool caresBreath;
+    public bool movingGoal;
+    public bool caresMoving;
+    public bool lightOffGoal;
+    public bool caresLight;
 
     public float damagePerSecond = 1;
 
@@ -16,8 +24,7 @@ public class EnemyBehavior : MonoBehaviour
     private PlayerMovement PM;
 
     public GameManager GM;
-
-    public int room;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +42,12 @@ public class EnemyBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 moveDir = player.transform.position - gameObject.transform.position;
+        moveDir.Normalize();
+        moveDir.z = 0;
+        Vector3 moveVeloc = moveDir * moveSpeed;
         
+        gameObject.GetComponent<Rigidbody2D>().velocity = moveVeloc; //Apply that to your rigidbody
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -46,13 +58,21 @@ public class EnemyBehavior : MonoBehaviour
             PM.currentHealth -= damagePerSecond * Time.deltaTime;
             
             
-            if (PM.eyesClosed == closeEyesGoal && PM.breathHeld == holdBreathGoal)
+            if ((PM.eyesClosed == closeEyesGoal || !caresEyes) && (PM.breathHeld == holdBreathGoal || !caresBreath) && (PM.lightOff == lightOffGoal || !caresLight) && (PM.moving == movingGoal || !caresMoving))
             {
                 PM.haunted = false;
-                GM.cameraHaunted[room] = false;
+                //GM.cameraHaunted[room] = false;
                 Destroy(gameObject);
             }
         }
         
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            PM.haunted = false;
+        }
     }
 }

@@ -62,14 +62,6 @@ public class GameManager : MonoBehaviour
             globalButton.SetActive(true);
             allOtherButtons.SetActive(false);
         }
-
-        for (int i = 0; i < allCameraPositions.Length; i++)//For each camera...
-        {
-            if (cameraHaunted[i]) //If it's haunted...
-            {
-                cameraActive[i] = false; //deactivate it.
-            }
-        }
     }
 
     public void EnemyHandler()
@@ -80,14 +72,9 @@ public class GameManager : MonoBehaviour
         {
             int spawn = Random.Range(1, allEnemyPositions.Length);
             
-            if (!cameraHaunted[spawn])
-            {
                 GameObject newEnemy = Instantiate(allEnemyTypes[Random.Range(0, allEnemyTypes.Length)],
                     allEnemyPositions[spawn].transform);
-                cameraHaunted[spawn] = true;
-                newEnemy.GetComponent<EnemyBehavior>().room = spawn;
                 EnemySpawnReset();
-            }
 
         }
     }
@@ -105,4 +92,11 @@ public class GameManager : MonoBehaviour
             currentCameraPos = cam;
         }
     }
+
+    public void HauntCamera(int i)
+    {
+        cameraActive[i] = false;
+    }
+
+    
 }

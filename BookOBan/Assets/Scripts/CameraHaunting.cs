@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraPair : MonoBehaviour
+public class CameraHaunting : MonoBehaviour
 {
-    public GameManager GM;
+    public GameManager gm;
 
-    public int room;
-
+    public int cameraNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +22,9 @@ public class CameraPair : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.tag == "Player" && !other.GetComponent<PlayerMovement>().haunted)
+        if (other.tag == "Enemy")
         {
-            GM.cameraActive[room] = true;
+            gm.SendMessage("HauntCamera", cameraNumber);
         }
     }
 }

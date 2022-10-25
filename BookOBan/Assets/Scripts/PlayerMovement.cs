@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,11 +10,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Controls")] 
     public KeyCode closeEyeKey = KeyCode.E;
     public KeyCode holdBreathKey = KeyCode.Q;
+    public KeyCode LightToggleKey = KeyCode.F;
 
     public GameObject closeEyeFiter;
     public bool eyesClosed;
-
     public bool breathHeld;
+    public bool lightOff;
+    public bool moving;
     
     private Vector3 moveDirection;
     public float moveSpeed = 2;
@@ -56,14 +59,25 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(holdBreathKey))
         {
             breathHeld = true;
-            
         }
 
         if (Input.GetKeyUp(holdBreathKey))
         {
             breathHeld = false;
-            
         }
+        
+        if (Input.GetKey(LightToggleKey))
+        {
+            lightOff = true;
+        }
+
+        if (Input.GetKeyUp(LightToggleKey))
+        {
+            lightOff = false;
+        }
+        
+        
+        
         
         //Movement
         moveDirection = new Vector3(0, 1, 0) * Input.GetAxis("Vertical");
@@ -77,10 +91,12 @@ public class PlayerMovement : MonoBehaviour
         if(moveDirection != new Vector3(0,0,0))
         {
             animator.SetBool("IsMoving", true);
+            moving = true;
         }
         else
         {
             animator.SetBool("IsMoving", false);
+            moving = false;
         }
 
 
@@ -106,8 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Debug.Log("You are now dead. Buy a Premium Subscription for the full death experience (now only $6.66 a month)");
-            Debug.Break();
+            SceneManager.LoadScene(1);
         }
     }
 }
