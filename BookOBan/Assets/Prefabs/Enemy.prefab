@@ -115,7 +115,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 1
   closeEyesGoal: 1
+  caresEyes: 1
   holdBreathGoal: 0
+  caresBreath: 0
+  movingGoal: 0
+  caresMoving: 0
+  lightOffGoal: 0
+  caresLight: 0
   damagePerSecond: 1
   GM: {fileID: 0}
 --- !u!50 &-3430893229266921128

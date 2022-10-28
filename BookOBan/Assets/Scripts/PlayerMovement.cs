@@ -25,11 +25,24 @@ public class PlayerMovement : MonoBehaviour
     public float currentHealth;
     public float healthRecovery = 3;
     public GameObject healthBar;
+    public GameObject healthCloud;
+    public float incomingDPS;
     public bool haunted; //Whether the player is being damaged
+    
+    public float maxBreath = 10;
+    public float currentBreath;
+    public float BreathRecovery = 1.2f;
+    
+    
 
     public GameObject sprite;
 
     Animator animator;
+    [Header("UI Elements")] 
+    public GameObject seeUI;
+    public GameObject noSeeUI;
+    public GameObject lightUI;
+    public GameObject breathBox;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         myRB = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
+        currentBreath = maxBreath;
     }
 
     // Update is called once per frame
@@ -55,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
             closeEyeFiter.SetActive(false);
         }
         
+        seeUI.SetActive(!eyesClosed);
+        noSeeUI.SetActive(eyesClosed);
         
         if (Input.GetKey(holdBreathKey))
         {
@@ -65,6 +81,18 @@ public class PlayerMovement : MonoBehaviour
         {
             breathHeld = false;
         }
+
+        if (breathHeld && currentBreath > 0)
+        {
+            currentBreath -= Time.deltaTime;
+        }
+        else if (currentBreath < maxBreath)
+        {
+            currentBreath += Time.deltaTime;
+        }
+
+        breathBox.transform.localScale = new Vector3(0.5f, (currentBreath / maxBreath)/2, 1);
+        
         
         if (Input.GetKey(LightToggleKey))
         {
@@ -76,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             lightOff = false;
         }
         
-        
+        lightUI.SetActive(!lightOff);
         
         
         //Movement
@@ -118,6 +146,11 @@ public class PlayerMovement : MonoBehaviour
             currentHealth += healthRecovery * Time.deltaTime;
         }
         healthBar.transform.localScale = new Vector3(295 * (currentHealth/maxHealth), healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+        healthCloud.transform.localScale = new Vector3(4 - (incomingDPS/2), 4 - (incomingDPS/2), 1);
+        if (healthCloud.transform.localScale.x < 1.5)
+        {
+            healthCloud.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        }
 
 
         if (currentHealth <= 0)

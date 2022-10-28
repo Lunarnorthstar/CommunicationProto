@@ -50,14 +50,21 @@ public class EnemyBehavior : MonoBehaviour
         gameObject.GetComponent<Rigidbody2D>().velocity = moveVeloc; //Apply that to your rigidbody
     }
 
+    private bool tick = false;
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
             PM.haunted = true;
+            if (!tick)
+            {
+                PM.incomingDPS += damagePerSecond;
+                tick = true;
+            }
+            
             PM.currentHealth -= damagePerSecond * Time.deltaTime;
-            
-            
+
+
             if ((PM.eyesClosed == closeEyesGoal || !caresEyes) && (PM.breathHeld == holdBreathGoal || !caresBreath) && (PM.lightOff == lightOffGoal || !caresLight) && (PM.moving == movingGoal || !caresMoving))
             {
                 PM.haunted = false;
@@ -73,6 +80,8 @@ public class EnemyBehavior : MonoBehaviour
         if (other.tag == "Player")
         {
             PM.haunted = false;
+            PM.incomingDPS -= damagePerSecond;
+            tick = false;
         }
     }
 }
