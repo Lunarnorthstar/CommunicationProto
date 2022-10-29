@@ -58,13 +58,16 @@ public class GameManager : MonoBehaviour
             allOtherButtons.SetActive(true);
 
             theCamera.GetComponent<Camera>().cullingMask |= (1 << 7); //Turn the layer mask for layer 7 off (stop rendering)
+            
         }
         else
         {
             globalButton.SetActive(true);
             allOtherButtons.SetActive(false);
             theCamera.GetComponent<Camera>().cullingMask = ~ (1 << 7); //Turn the layer mask for layer 7 on (start rendering)
+            theCamera.GetComponent<Camera>().cullingMask = ~ (1 << 3); //Turn the layer mask for layer 3 off (stop rendering)
         }
+        
     }
 
     public void EnemyHandler()
