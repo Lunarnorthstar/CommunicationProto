@@ -16,6 +16,17 @@ public class EnemyBehavior : MonoBehaviour
     public bool caresMoving;
     public bool lightOffGoal;
     public bool caresLight;
+    
+    [Header("Anti")]
+    public bool hatesCloseEyesGoal; //Whether the player should close their eyes or not to provoke this entity
+    public bool hatesCaresEyes; //Whether the player's eyes matter about provoking the entity
+    public bool hatesHoldBreathGoal;
+    public bool hatesCaresBreath;
+    public bool hatesMovingGoal;
+    public bool hatesCaresMoving;
+    public bool hatesLightOffGoal;
+    public bool hatesCaresLight;
+    public int hateExtraDamage = 1;
 
     public float damagePerSecond = 1;
 
@@ -51,6 +62,8 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     private bool tick = false;
+    public float timeToDefeat;
+    private float timer = 0;
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -64,13 +77,29 @@ public class EnemyBehavior : MonoBehaviour
             
             PM.currentHealth -= damagePerSecond * Time.deltaTime;
 
+            if ((PM.eyesClosed == hatesCloseEyesGoal || !hatesCaresEyes) && (PM.breathHeld == hatesHoldBreathGoal || !hatesCaresBreath) && (PM.lightOff == hatesLightOffGoal || !hatesCaresLight) && (PM.moving == hatesMovingGoal || !hatesCaresMoving))
+            {
+                PM.currentHealth -= hateExtraDamage * Time.deltaTime;
+            }
+            
+            
 
             if ((PM.eyesClosed == closeEyesGoal || !caresEyes) && (PM.breathHeld == holdBreathGoal || !caresBreath) && (PM.lightOff == lightOffGoal || !caresLight) && (PM.moving == movingGoal || !caresMoving))
             {
-                PM.haunted = false;
-                //GM.cameraHaunted[room] = false;
-                Destroy(gameObject);
+                timer += Time.deltaTime;
+                if (timer >= timeToDefeat)
+                {
+                    PM.haunted = false;
+                    Destroy(gameObject);
+                }
             }
+            else
+            {
+                timer = 0;
+            }
+            
+            
+            
         }
         
     }

@@ -12,11 +12,13 @@ public class ReaderDanger : MonoBehaviour
 
     public GameObject UI;
     public GameObject button;
+    public GameObject screentext;
 
     public int maxHealth = 10;
     private float health;
     public float regen = 3;
     public GameObject healthBar;
+    public GameObject blackoutpanel;
 
 
     // Start is called before the first frame update
@@ -48,6 +50,8 @@ public class ReaderDanger : MonoBehaviour
         }
         healthBar.transform.localScale = new Vector3(295 * (health/maxHealth), healthBar.transform.localScale.y, healthBar.transform.localScale.z);
 
+        blackoutpanel.SetActive(UI.activeSelf);
+        screentext.SetActive(!UI.activeSelf);
 
         if (health <= 0)
         {

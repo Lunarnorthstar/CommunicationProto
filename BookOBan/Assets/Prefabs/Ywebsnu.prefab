@@ -122,8 +122,18 @@ MonoBehaviour:
   caresMoving: 1
   lightOffGoal: 0
   caresLight: 1
+  hatesCloseEyesGoal: 0
+  hatesCaresEyes: 0
+  hatesHoldBreathGoal: 0
+  hatesCaresBreath: 0
+  hatesMovingGoal: 0
+  hatesCaresMoving: 0
+  hatesLightOffGoal: 1
+  hatesCaresLight: 1
+  hateExtraDamage: 1
   damagePerSecond: 1
   GM: {fileID: 0}
+  timeToDefeat: 6
 --- !u!50 &-3430893229266921128
 Rigidbody2D:
   serializedVersion: 4

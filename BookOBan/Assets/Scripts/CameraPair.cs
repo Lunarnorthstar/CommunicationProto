@@ -9,6 +9,7 @@ public class CameraPair : MonoBehaviour
 
     public int room;
     public KeyCode fixKey = KeyCode.T;
+    public GameObject icon;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,14 @@ public class CameraPair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (GM.cameraActive[room])
+        {
+            icon.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+        else
+        {
+            icon.GetComponent<SpriteRenderer>().color = Color.red;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other)

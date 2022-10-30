@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,6 +24,9 @@ public class GameManager : MonoBehaviour
     public float enemyTimer;
 
 
+    private LayerMask localMask = ~ ((1 << 7) | (1 << 3));
+    private LayerMask globalMask = ~(1 << 3);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +35,7 @@ public class GameManager : MonoBehaviour
         cameraActive[0] = true;
         CameraChange(0);
         EnemySpawnReset();
+        enemyTimer = 5;
     }
 
     // Update is called once per frame
@@ -57,15 +62,15 @@ public class GameManager : MonoBehaviour
             globalButton.SetActive(false);
             allOtherButtons.SetActive(true);
 
-            theCamera.GetComponent<Camera>().cullingMask |= (1 << 7); //Turn the layer mask for layer 7 off (stop rendering)
-            
+            theCamera.GetComponent<Camera>().cullingMask = globalMask;
+
         }
         else
         {
             globalButton.SetActive(true);
             allOtherButtons.SetActive(false);
-            theCamera.GetComponent<Camera>().cullingMask = ~ (1 << 7); //Turn the layer mask for layer 7 on (start rendering)
-            theCamera.GetComponent<Camera>().cullingMask = ~ (1 << 3); //Turn the layer mask for layer 3 off (stop rendering)
+            theCamera.GetComponent<Camera>().cullingMask = localMask;
+
         }
         
     }

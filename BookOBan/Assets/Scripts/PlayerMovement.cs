@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject noSeeUI;
     public GameObject lightUI;
     public GameObject breathBox;
+    public GameObject movement;
+    public GameObject notMovement;
     
 
     // Start is called before the first frame update
@@ -88,6 +91,14 @@ public class PlayerMovement : MonoBehaviour
         {
             currentBreath -= Time.deltaTime;
         }
+        else if (breathHeld)
+        {
+            currentHealth -= Time.deltaTime;
+            if (!haunted)
+            {
+                currentHealth -= Time.deltaTime * healthRecovery;
+            }
+        }
         else if (currentBreath < maxBreath)
         {
             currentBreath += Time.deltaTime * BreathRecovery;
@@ -96,17 +107,12 @@ public class PlayerMovement : MonoBehaviour
         breathBox.transform.localScale = new Vector3(0.5f, (currentBreath / maxBreath)/2, 1);
         
         
-        if (Input.GetKey(LightToggleKey))
+        if (Input.GetKeyDown(LightToggleKey))
         {
-            lightOff = true;
-            lightRing.SetActive(false);
+            lightOff = !lightOff;
+            lightRing.SetActive(!lightRing.activeSelf);
         }
-
-        if (Input.GetKeyUp(LightToggleKey))
-        {
-            lightOff = false;
-            lightRing.SetActive(true);
-        }
+        
         
         lightUI.SetActive(!lightOff);
         
@@ -130,6 +136,9 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsMoving", false);
             moving = false;
         }
+        
+        movement.SetActive(moving);
+        notMovement.SetActive(!moving);
 
 
         if(Input.GetAxis("Horizontal") > 0)
