@@ -19,6 +19,7 @@ public class TutorialProcess : MonoBehaviour
 
     private void Start()
     {
+        UI.SetActive(true);
         Time.timeScale = 0;
     }
 

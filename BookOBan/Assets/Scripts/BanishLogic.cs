@@ -108,6 +108,7 @@ public class BanishLogic : MonoBehaviour
                 if (input == SM.chosenSymbols[i])
                 {
                     SM.chosenSymbols[i] = -1; //"Null" it
+                   Destroy(SM.activeSymbols[i]);
                     SM.activeSymbols[i] = deletedSymbol;
                     successes++;
                     UI.GetComponentInChildren<Text>().text = "The Entities wail in agony!";
