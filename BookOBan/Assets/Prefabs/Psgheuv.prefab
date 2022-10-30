@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5726378262524442440}
   - component: {fileID: -3430893229266921128}
   m_Layer: 3
-  m_Name: Enemy
+  m_Name: Psgheuv
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c8c3ccba39d66e946bacfd7aad07e138, type: 3}
-  m_Color: {r: 0.7169812, g: 0.15895337, b: 0.15895337, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 5f022a2717313d4469fd577216c5dd51, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -113,15 +113,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5e4cf9ca9f5bf4bb742ae1acbd46b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
-  closeEyesGoal: 1
+  moveSpeed: 1.5
+  closeEyesGoal: 0
   caresEyes: 1
   holdBreathGoal: 0
   caresBreath: 0
   movingGoal: 0
   caresMoving: 0
-  lightOffGoal: 0
-  caresLight: 0
+  lightOffGoal: 1
+  caresLight: 1
   damagePerSecond: 1
   GM: {fileID: 0}
 --- !u!50 &-3430893229266921128

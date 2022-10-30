@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     
 
     public GameObject sprite;
+    public GameObject lightRing;
 
     Animator animator;
     [Header("UI Elements")] 
@@ -43,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject noSeeUI;
     public GameObject lightUI;
     public GameObject breathBox;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -88,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (currentBreath < maxBreath)
         {
-            currentBreath += Time.deltaTime;
+            currentBreath += Time.deltaTime * BreathRecovery;
         }
 
         breathBox.transform.localScale = new Vector3(0.5f, (currentBreath / maxBreath)/2, 1);
@@ -97,11 +99,13 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(LightToggleKey))
         {
             lightOff = true;
+            lightRing.SetActive(false);
         }
 
         if (Input.GetKeyUp(LightToggleKey))
         {
             lightOff = false;
+            lightRing.SetActive(true);
         }
         
         lightUI.SetActive(!lightOff);
